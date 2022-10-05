@@ -29,6 +29,7 @@ def remove_offline_db() -> None :
     for folder in dirs_to_remove:
         try:    
             shutil.rmtree(folder)
+            print("remaining kafka.offline files terminated *.* ")
         except Exception as ex:
             if type(ex).__name__ == "PermissionError":
                 print("A service is running, stop it then try again.")
@@ -52,8 +53,8 @@ def truncate_tables() -> None:
                 print(f"\"{table}\" truncated ~!")
             except Exception as ex:
                #! "oh no!"
-               #* "anyways"
                print(f"something died -> something: {ex}")
+               #* "anyways"
                continue
 
 
