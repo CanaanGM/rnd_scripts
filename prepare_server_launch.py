@@ -4,7 +4,6 @@
     TODO: Maybe make it pretty ??
 """
 
-from ctypes import WinError
 from typing import List
 
 dirs_to_remove : List[str] = [
@@ -22,6 +21,7 @@ tables_to_truncate : List[str] = [
 ]
 
 db_con_string : str = "server=localhost;User Id=root;Password=root;database=adfalcon;Persist Security Info=True;Charset=utf8;Pooling=true;Min Pool Size=0;Max Pool Size=350;Connection Lifetime=300;Default Command Timeout=120;"
+seperator = "***"
 
 def remove_offline_db() -> None :
     import shutil
@@ -30,11 +30,11 @@ def remove_offline_db() -> None :
         try:    
             shutil.rmtree(folder)
         except Exception as ex:
-            if type(ex).__name__ == 'PermissionError':
-                print(f"a service is running, Shut it down first ╰(*°▽°*)╯")
+            if type(ex).__name__ == "PermissionError":
+                print("A service is running, stop it then try again.")
                 continue
-            if type(ex).__name__ == 'FileNotFoundError':
-                print("file already removed~!")
+            if type(ex).__name__ == "FileNotFoundError":
+                print("Folder already cleaned ~!")
                 continue
             print(f"Couldn't remove cause: \n{type(ex).__name__}\n{folder}")
             continue
@@ -43,14 +43,13 @@ def truncate_tables() -> None:
     """Empties the tables relied upon for the service bus?? anyways they aren't needed"""
     from sqlalchemy import create_engine, text
     engine = create_engine("mysql+pymysql://root:root@localhost/adfalcon?charset=utf8")
-    print("=== "*9)
+    print(f"\n{seperator *15}\n")
     with engine.connect() as conn:
         for table in tables_to_truncate:
             try:
                 "attempt to truncate ze table"
                 conn.execute(f"TRUNCATE TABLE {table};")
-                
-                print(f"Table \"{table}\" emptied (truncated) successfuly ~!")
+                print(f"\"{table}\" truncated ~!")
             except Exception as ex:
                #! "oh no!"
                #* "anyways"
