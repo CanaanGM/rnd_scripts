@@ -4,6 +4,7 @@
     TODO: Maybe make it pretty ??
 """
 
+from ctypes import WinError
 from typing import List
 
 dirs_to_remove : List[str] = [
@@ -29,18 +30,27 @@ def remove_offline_db() -> None :
         try:    
             shutil.rmtree(folder)
         except Exception as ex:
-            print(f"Couldn't remove cause: \n{ex}\n{folder}")
+            if type(ex).__name__ == 'PermissionError':
+                print(f"a service is running, Shut it down first ╰(*°▽°*)╯")
+                continue
+            if type(ex).__name__ == 'FileNotFoundError':
+                print("file already removed~!")
+                continue
+            print(f"Couldn't remove cause: \n{type(ex).__name__}\n{folder}")
             continue
 
 def truncate_tables() -> None:
     """Empties the tables relied upon for the service bus?? anyways they aren't needed"""
     from sqlalchemy import create_engine, text
     engine = create_engine("mysql+pymysql://root:root@localhost/adfalcon?charset=utf8")
+    print("=== "*9)
     with engine.connect() as conn:
         for table in tables_to_truncate:
             try:
                 "attempt to truncate ze table"
                 conn.execute(f"TRUNCATE TABLE {table};")
+                
+                print(f"Table \"{table}\" emptied (truncated) successfuly ~!")
             except Exception as ex:
                #! "oh no!"
                #* "anyways"
