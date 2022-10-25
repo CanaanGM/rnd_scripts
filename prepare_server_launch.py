@@ -6,12 +6,21 @@
 
 from typing import List
 
+# make these a cli argument
+# like python <scriptname> -r [what to remove] -db to truncate database tables 
 dirs_to_remove : List[str] = [
     r"D:\development\af-framework\ArabyAds.Framework.DistributedEventBroker\ArabyAds.Framework.DistributedEventBroker.Core\bin\Debug\net6.0\kafka.offline",
     r"D:\development\dsp-platform\src-netcore\ArabyAds.AdFalcon.Banker\ArabyAds.AdFalcon.Banker.Master\bin\Debug\net6.0\kafka.offline",
     r"D:\development\dsp-platform\src-netcore\ArabyAds.AdFalcon.Server.BiddingPrediction\ArabyAds.AdFalcon.Server.BiddingPrediction.Service.Host\bin\Debug\net6.0\kafka.offline",
     r"D:\development\dsp-platform\src-netcore\AdFalcon.AdServer\ArabyAds.AdFalcon.Server.MaintenanceJob\bin\Debug\net6.0\kafka.offline",
     r"D:\development\dsp-platform\src-netcore\AdFalcon.AdServer\ArabyAds.AdFalcon.Server.WebAPI\bin\Debug\net6.0\kafka.offline",
+    r"G:\af-framework\ArabyAds.Framework.DistributedEventBroker\ArabyAds.Framework.DistributedEventBroker.Core\bin\Debug\net6.0\kafka.offline",
+    r"G:\dsp-platform\src-netcore\ArabyAds.AdFalcon.Banker\ArabyAds.AdFalcon.Banker.Master\bin\Debug\net6.0\kafka.offline",
+    r"G:\dsp-platform\src-netcore\ArabyAds.AdFalcon.Server.BiddingPrediction\ArabyAds.AdFalcon.Server.BiddingPrediction.Service.Host\bin\Debug\net6.0\kafka.offline",
+    r"G:\dsp-platform\src-netcore\AdFalcon.AdServer\ArabyAds.AdFalcon.Server.MaintenanceJob\bin\Debug\net6.0\kafka.offline",
+    r"G:\dsp-platform\src-netcore\AdFalcon.AdServer\ArabyAds.AdFalcon.Server.WebAPI\bin\Debug\net6.0\kafka.offline"
+
+
 ]
 
 tables_to_truncate : List[str] = [
